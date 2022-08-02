@@ -70,6 +70,7 @@ plt.legend(loc='upper right')
 plt.axis('equal')
 plt.show()
 ```
+
 ![image](https://user-images.githubusercontent.com/91864024/182327064-50644d07-23c3-4365-89c0-90840126e8e9.png)
 
 Comments: Positive and Negative comments make up the majority. The remaining types have almost the same number
@@ -96,6 +97,7 @@ for label, cmap in zip(['Positive', 'Negative', 'Neutral', 'Extremely Positive',
 #### 3.4. Data cleaning
 **- Show some rows of tweets**
 ![image](https://user-images.githubusercontent.com/91864024/182328660-6e7c5d1c-cf2a-45e6-b71f-7a0a34403d7a.png)
+
 **- Remove special characters, tokenizer, remove stopword**
 ```python
 stopwords = nltk.corpus.stopwords.words('english')
@@ -183,6 +185,7 @@ df_train['OriginalTweetClean'] = df_train['OriginalTweet'].apply(lambda x: prepr
 df_test['OriginalTweetClean'] = df_test['OriginalTweet'].apply(lambda x: preprocess_tweet(x))
 ```
 ![image](https://user-images.githubusercontent.com/91864024/182329761-bce90077-1e6a-4023-b3f1-e1922209d795.png)
+
 #### 3.5. Processing training/ testing set
 **- Split training/ testing set**
 ```python
@@ -193,9 +196,11 @@ y_train = df_train['SentimentMapped']
 y_test = df_test['SentimentMapped']
 ```
 **- One hot encoding target column**
+```python
 #OneHot Encoding the target column
 y_train = pd.get_dummies(y_train)
 y_test = pd.get_dummies(y_test)
+```
 **- Tokenizer**
 ```python
 from keras.preprocessing.text import Tokenizer
