@@ -226,15 +226,72 @@ X_test_seq_padded = pad_sequences(X_test_seq,44)
 ![image](https://user-images.githubusercontent.com/91864024/182331027-e3cc7509-d086-4d23-9de4-ee49f008f3f6.png)
 ![image](https://user-images.githubusercontent.com/91864024/182331068-dbbb7dad-8e7b-467a-baf6-3aa6603b6b0c.png)
 
+#### 3.6. Build model
+**- Init LSTM model**
+```python
+model=Sequential()
+model.add(Embedding(input_dim=MAX_NB_WORDS, output_dim=64, input_length=X_train_seq_padded.shape[1]))
+#input_dim: Size of the vocabulary.
+#output_dim: Dimension of the dense embedding.
+model.add(SpatialDropout1D(0.4))
+model.add(LSTM(32, activation='relu', dropout=0.2, recurrent_dropout=0.2, return_sequences=True))
+# model.add(LSTM(32, activation='relu', dropout=0.2, recurrent_dropout=0.2, return_sequences=True))
+model.add(LSTM(32, activation='relu', dropout=0.2, recurrent_dropout=0.2))
+model.add(Dense(3, activation='softmax'))
+model.summary()
+```
+![image](https://user-images.githubusercontent.com/91864024/182331537-0b3aa6b2-f356-4f5e-935d-ebe0d261992e.png)
+**- Compile model with EarlyStopping**
+```python
+#Compile the model
+model.compile(optimizer=Adam(),
+              loss='categorical_crossentropy',
+              metrics=['accuracy'])
 
+#Adding an early stopping
+es = EarlyStopping(monitor='val_accuracy', 
+                   mode='max', 
+                   patience=4, #Stop the model training if the validation accuracy doesnt increase in 4 consecutive Epochs
+                   restore_best_weights=True)
+```
+**- Fit model**
+```python
+#Fit the RNN
+history = model.fit(X_train_seq_padded, y_train, 
+                    batch_size=32, epochs=100, callbacks =[es],
+                    validation_data=(X_test_seq_padded, y_test))
+```
+### 4. Evaluation and prediction
+#### 4.1. Evaluation
+```python
+for i in ['accuracy']:
+    acc = history.history[i]
+    val_acc = history.history['val_{}'.format(i)]
+    epochs = range(1, len(acc) + 1)
 
-
-
-
-
-
-
-
+    plt.figure()
+    plt.plot(epochs, acc, label='Training Accuracy')
+    plt.plot(epochs, val_acc, label='Validation Accuracy')
+    plt.title('Results for {}'.format(i))
+    plt.legend()
+    plt.show()
+```
+![image](https://user-images.githubusercontent.com/91864024/182332374-c5033a0b-fcb9-4347-92b7-1df6bb134509.png)
+**- Accuracy score**
+```python
+score = model.evaluate(X_test_seq_padded,y_test, verbose=0)
+print('Test loss:', score[0]) 
+print('Test accuracy:', score[1]) 
+```
+![image](https://user-images.githubusercontent.com/91864024/182332504-964ed122-d085-46db-b273-8082a2be03e4.png)
+**- Prediction**
+```python
+y_pred_mlp=model.predict(X_test_seq_padded)
+```
+![image](https://user-images.githubusercontent.com/91864024/182332625-41cf3867-0f5f-46ed-8ac5-23232bd42880.png)
+### 5. Conclusion
+- Coronavirus has been negatively affecting our lives. Adapting and living safely with the pandemic is a skill and a sense of responsibility that everyone must equip themselves with
+- 
 
 
 
