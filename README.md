@@ -183,7 +183,8 @@ df_train['OriginalTweetClean'] = df_train['OriginalTweet'].apply(lambda x: prepr
 df_test['OriginalTweetClean'] = df_test['OriginalTweet'].apply(lambda x: preprocess_tweet(x))
 ```
 ![image](https://user-images.githubusercontent.com/91864024/182329761-bce90077-1e6a-4023-b3f1-e1922209d795.png)
-#### 3.5. Split training/ testing set
+#### 3.5. Processing training/ testing set
+**- Split training/ testing set**
 ```python
 X_train = df_train['OriginalTweetClean']
 X_test = df_test['OriginalTweetClean']
@@ -191,6 +192,41 @@ X_test = df_test['OriginalTweetClean']
 y_train = df_train['SentimentMapped']
 y_test = df_test['SentimentMapped']
 ```
+**- One hot encoding target column**
+#OneHot Encoding the target column
+y_train = pd.get_dummies(y_train)
+y_test = pd.get_dummies(y_test)
+**- Tokenizer**
+```python
+from keras.preprocessing.text import Tokenizer
+from keras.preprocessing.sequence import pad_sequences
+#The maximum number of words to be used(most frequent)
+MAX_NB_WORDS = 5000
+#Max number of words in each Tweet
+MAX_SEQUENCE_LENGTH = 50
+
+# Initialize and fit the tokenizer
+tokenizer = Tokenizer(num_words=MAX_NB_WORDS, filters='!"#$%&()*+,-./:;<=>?@[\]^_`{|}~', lower=True, split=' ')
+tokenizer.fit_on_texts(X_train)
+```
+![image](https://user-images.githubusercontent.com/91864024/182330734-26ddc1b3-7a6c-4f3e-84ae-619227d28b96.png)
+
+```python
+#Use that tokenizer to transform the text messages in the training and test sets
+X_train_seq = tokenizer.texts_to_sequences(X_train)
+X_test_seq = tokenizer.texts_to_sequences(X_test)
+X_train_seq[10]
+```
+**- Padding**
+```python
+#Pad the sequences so each sentence is the same length:
+X_train_seq_padded = pad_sequences(X_train_seq, 44) #mỗi pad sequence có 44 phần tử
+X_test_seq_padded = pad_sequences(X_test_seq,44)
+```
+![image](https://user-images.githubusercontent.com/91864024/182331027-e3cc7509-d086-4d23-9de4-ee49f008f3f6.png)
+![image](https://user-images.githubusercontent.com/91864024/182331068-dbbb7dad-8e7b-467a-baf6-3aa6603b6b0c.png)
+
+
 
 
 
