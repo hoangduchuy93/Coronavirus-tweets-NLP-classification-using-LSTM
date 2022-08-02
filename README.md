@@ -246,6 +246,7 @@ model.add(Dense(3, activation='softmax'))
 model.summary()
 ```
 ![image](https://user-images.githubusercontent.com/91864024/182331537-0b3aa6b2-f356-4f5e-935d-ebe0d261992e.png)
+
 **- Compile model with EarlyStopping**
 ```python
 #Compile the model
@@ -259,6 +260,7 @@ es = EarlyStopping(monitor='val_accuracy',
                    patience=4, #Stop the model training if the validation accuracy doesnt increase in 4 consecutive Epochs
                    restore_best_weights=True)
 ```
+
 **- Fit model**
 ```python
 #Fit the RNN
@@ -282,6 +284,7 @@ for i in ['accuracy']:
     plt.show()
 ```
 ![image](https://user-images.githubusercontent.com/91864024/182332374-c5033a0b-fcb9-4347-92b7-1df6bb134509.png)
+
 **- Accuracy score**
 ```python
 score = model.evaluate(X_test_seq_padded,y_test, verbose=0)
