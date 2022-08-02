@@ -2,7 +2,7 @@
 
 # Coronavirus Tweets NLP Classification Using LSTM
 ## I. Outline
-- Coronavirus has changed our lives and the way we live everyday. There has been a lot of loss for people and property. And we can't efford it.
+- Coronavirus has changed our lives and the way we live everyday. We have experienced loss for people and property. And we can't efford it.
 - Thanks to the unprecedented strong development of vaccines, along with the awareness of vaccination and wearing masks at all times, we have partly controlled the epidemic to re-develop the economy. However, community awareness is still the top criterion to ensure safe coexistence in the context that the epidemic cannot end soon.
 - This project is made using a dataset taken from twitter in 2020, during the worst covid epidemic in history. Through people's tweets, this project (for learning purposes) tries to predict their emotions to understand how they felt during that difficult time.
 ## II. Business Objective/ Problem
