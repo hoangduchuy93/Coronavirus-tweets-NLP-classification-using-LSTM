@@ -183,8 +183,14 @@ df_train['OriginalTweetClean'] = df_train['OriginalTweet'].apply(lambda x: prepr
 df_test['OriginalTweetClean'] = df_test['OriginalTweet'].apply(lambda x: preprocess_tweet(x))
 ```
 ![image](https://user-images.githubusercontent.com/91864024/182329761-bce90077-1e6a-4023-b3f1-e1922209d795.png)
+#### 3.5. Split training/ testing set
+```python
+X_train = df_train['OriginalTweetClean']
+X_test = df_test['OriginalTweetClean']
 
-
+y_train = df_train['SentimentMapped']
+y_test = df_test['SentimentMapped']
+```
 
 
 
