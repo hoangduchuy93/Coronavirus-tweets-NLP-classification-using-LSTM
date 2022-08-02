@@ -100,7 +100,7 @@ for label, cmap in zip(['Positive', 'Negative', 'Neutral', 'Extremely Positive',
 ```python
 stopwords = nltk.corpus.stopwords.words('english')
 ```
-**- Function for text**
+**- Functions for text**
 ```python
 # let's create some of the functions: 
 punctuation = '!"$%&\'()*+,-./:;<=>?[\\]^_`{|}~•@'         # define a string of punctuation symbols
@@ -168,10 +168,21 @@ def preprocess_tweet(tweet):
 
     return tweet
  ```
- 
+ **- Map our target with labels**
+ ```python
+ target_mapping={'Extremely Negative':0, 'Negative':0, 'Neutral':1,
+                'Positive':2, 'Extremely Positive':2}
 
-
-
+df_train['SentimentMapped']=df_train['Sentiment'].map(lambda x:target_mapping[x])
+df_test['SentimentMapped']=df_test['Sentiment'].map(lambda x:target_mapping[x])
+```
+![image](https://user-images.githubusercontent.com/91864024/182329464-0b08d563-09ff-4712-a0cd-40ae40b2e004.png)
+**- Apply functions**
+```python
+df_train['OriginalTweetClean'] = df_train['OriginalTweet'].apply(lambda x: preprocess_tweet(x))
+df_test['OriginalTweetClean'] = df_test['OriginalTweet'].apply(lambda x: preprocess_tweet(x))
+```
+![image](https://user-images.githubusercontent.com/91864024/182329761-bce90077-1e6a-4023-b3f1-e1922209d795.png)
 
 
 
