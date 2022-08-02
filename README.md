@@ -284,16 +284,20 @@ print('Test loss:', score[0])
 print('Test accuracy:', score[1]) 
 ```
 ![image](https://user-images.githubusercontent.com/91864024/182332504-964ed122-d085-46db-b273-8082a2be03e4.png)
+
 **- Prediction**
 ```python
 y_pred_mlp=model.predict(X_test_seq_padded)
 ```
 ![image](https://user-images.githubusercontent.com/91864024/182332625-41cf3867-0f5f-46ed-8ac5-23232bd42880.png)
+
+![image](https://user-images.githubusercontent.com/91864024/182333955-70503297-93f0-46a0-963b-76876b752cb4.png)
+
 ### 5. Conclusion
 - Coronavirus has been negatively affecting our lives. Adapting and living safely with the pandemic is a skill and a sense of responsibility that everyone must equip themselves with
-- 
+- With 86% accuracy, the model can be used well in predicting user emotions
 
-
+Thank you for your experience with my project. Hope you enjoy it!
 
 
 
